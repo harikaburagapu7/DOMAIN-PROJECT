@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Student</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='all_buttons.css') }}">
+    <style>
+        #video {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            display: none;
+            border: 2px solid #ccc;
+            margin-top: 20px;
+            border-radius: 10px;
+        }
+
+        #canvas {
+            display: none;
+            margin-top: 20px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Add Student</h2>
+    <!-- {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <script>
+          alert("{{ messages[0] }}");
+        </script>
+      {% endif %}
+    {% endwith %} -->
+    
+    <!-- Form to add student details -->
+    <form action="/add-student" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+        
+        <label for="regno">Registration No:</label>
+        <input type="number" id="regno" name="regno" required><br><br>
+        
+        <label for="year">Year:</label>
+        <input type="text" id="year" name="year" required><br><br>
+        
+        <label for="school">School:</label>
+        <input type="text" id="school" name="school" required><br><br>
+        
+        <label for="branch">Branch:</label>
+        <input type="text" id="branch" name="branch" required><br><br>
+
+        <label for="semester">Semester:</label>
+        <input type="text" id="semester" name="semester" required><br><br>
+
+        <label for="section">Section:</label>
+        <input type="text" id="section" name="section" required><br><br>
+
+        <label for="phone">Phone No:</label>
+        <input type="tel" id="phone" name="phone" required><br><br>
+        
+        <label for="dob">Date of Birth:</label>
+        <input type="date" id="dob" name="dob" required><br><br>
+        
+        <label for="blood_group">Blood Group:</label>
+        <input type="text" id="blood_group" name="blood_group" required><br><br>
+        
+        <button type="submit">Submit to Capture Face</button>
+    </form>
+
+    <!-- Feature Extraction Form -->
+    <form id="extractForm" action="/extract-features" method="POST">
+        <button type="submit">Extract Features</button>
+    </form>
+  
+    <script>
+      // Handle feature extraction form submission with XMLHttpRequest
+      document.querySelector("#extractForm").addEventListener("submit", function (event) {
+          event.preventDefault();  // Prevent normal form submission
+
+          // Create a new XMLHttpRequest object
+          var xhr = new XMLHttpRequest();
+          xhr.open("POST", "/extract-features", true);
+
+          // Set up a callback function when the request is completed
+          xhr.onload = function () {
+              if (xhr.status === 200) {
+                  alert("Feature extraction completed successfully!");
+              } else {
+                  alert("Error: " + xhr.responseText);
+              }
+          };
+
+          // Send the request
+          xhr.send();
+      });
+    </script>
+
+</body>
+</html>

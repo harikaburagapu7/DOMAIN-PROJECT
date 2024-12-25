@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Take Attendance</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='all_buttons.css') }}">
+    <style>
+        #video {
+            width: 640px;
+            height: 480px;
+            border: 1px solid white;
+        }
+        #status {
+            margin-top: 20px;
+            font-size: 2em;
+            color: white;
+        }
+        button {
+            margin: 5px;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h6>Take Attendance</h6>
+    <img id="video" src="" alt="Video feed">
+    
+    <!-- Form to submit start attendance -->
+    <form action="{{ url_for('start_attendance') }}" method="post">
+        <button type="submit" id="startAttendance">Start Recording</button>
+    </form>
+    
+    <button id="stopAttendance" disabled>Stop Recording</button>
+    <div id="status"></div>
+
+    <script>
+        let isAttendanceActive = false;
+
+        // Start attendance (using the form submit above)
+        document.getElementById('startAttendance').addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent default action
+            if (!isAttendanceActive) {
+                fetch('/start-attendance', { method: 'POST' })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data.message);
+                        document.getElementById('status').textContent = "Attendance session started!";
+                        isAttendanceActive = true;
+                        this.disabled = true;
+                        document.getElementById('stopAttendance').disabled = false;
+                        // Set the source of the video feed to the Flask route
+                        document.getElementById('video').src = '/video_feed';
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+        });
+
+        // Stop attendance
+        document.getElementById('stopAttendance').addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent default action
+            if (isAttendanceActive) {
+                fetch('/stop-attendance', { method: 'POST' })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data.message);
+                        document.getElementById('status').textContent = "Attendance session stopped.";
+                        isAttendanceActive = false;
+                        this.disabled = true;
+                        document.getElementById('startAttendance').disabled = false;
+                        // Stop the video feed
+                        document.getElementById('video').src = '';
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Face Based Attendance System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='all_buttons.css') }}">
+</head>
+<body>
+    <!-- Heading for the Attendance System -->
+    <h1>Facial Based Attendance System</h1>
+
+    <div class="button-container">
+        <!-- <form action="/add-student">
+            <button class="button" type="submit">Add Student</button>
+        </form> -->
+        <!-- <a href="/add-student" class="button1">Add Student</a> -->
+        <a href="/add-student" class="button" style="background-color:#8989BA; color: #0a0a0a;">Add Student</a>
+        <button class="button" id="takeAttendanceButton">Take Attendance</button>
+        <a href="/check_attendance" class="button" style="background-color:#8989BA; color: #0a0a0a;">Check Attendance</a>
+
+        <!-- <a href="/check_attendance" class="button">Check Attendance</a> -->
+
+        
+    </div>
+    <div class="button-container">
+        <!-- <button class="button" id="downloadStudentDetailsButton">Download Student Details</button> -->
+        <!-- <a href="/download-student-details" class="button" id="downloadStudentDetailsButton">Download Student Details</a> -->
+        <button class="button" id="downloadStudentDetailsButton">Download Student Details</button>
+        <button class="button" id="downloadAttendanceButton">Download Attendance Excel Sheet</button>
+    </div>
+    <script>
+        // Add event listener for "Take Attendance" button
+        document.getElementById("takeAttendanceButton").addEventListener("click", function() {
+            window.location.href = "/take-attendance";
+        });
+
+        document.getElementById("downloadStudentDetailsButton").addEventListener("click", function() {
+        if (confirm("Do you want to download the student details?")) {
+            window.location.href = "/download-student-details";
+        }
+        });
+
+        document.getElementById("downloadAttendanceButton").addEventListener("click", function() {
+        if (confirm("Do you want to download the attendance excel sheet?")) {
+            window.location.href = "/download-attendance-excel-sheet";
+        }
+        });
+    </script>
+    
+</body>
+</html>

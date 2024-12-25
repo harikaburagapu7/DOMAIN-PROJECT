@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check Attendance</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='all_buttons.css') }}">
+    <!-- <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('scanner.gif');
+            /* background-color: #6a747d;
+            /* background-image: url('your-image-url.jpg'); Use a valid image URL */
+            background-size: cover; /* Makes sure the image covers the whole background */
+            background-repeat: no-repeat;
+        }
+
+        h4 {
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            margin: 0 auto;
+            width: 50%;
+        }
+
+        .form-group {
+            margin-bottom: 10px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="time"] {
+            padding: 5px;
+            border: 1px solid #ccc;
+            width: 100%;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+
+        #results {
+            margin-top: 20px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+    </style> -->
+</head>
+<body>
+    <h4>Check Attendance</h4>
+    <form id="attendance-form">
+        <div class="form-group">
+            <label for="semester">Semester:</label>
+            <input type="text" id="semester" name="semester" required>
+        </div>
+        <div class="form-group">
+            <label for="section">Section:</label>
+            <input type="text" id="section" name="section" required>
+        </div>
+        <div class="form-group">
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required>
+        </div>
+        <div class="form-group">
+            <label for="start-time">Start Time (HH:MM):</label>
+            <input type="time" id="start-time" name="start_time">
+        </div>
+        <div class="form-group">
+            <label for="end-time">End Time (HH:MM):</label>
+            <input type="time" id="end-time" name="end_time">
+        </div>
+        <div class="form-group">
+            <label for="subject">Subject:</label>
+            <input type="text" id="subject" name="subject">
+        </div>
+        <button type="submit">Search</button>
+    </form>
+    <div id="results">
+        <!-- <h5>Results</h5> -->
+        <table id="attendance-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Registration Number</th>
+                    <th>Semester</th>
+                    <th>Section</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Subject</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    <!-- <script>
+        const form = document.getElementById('attendance-form');
+        const results = document.getElementById('results');
+        const table = document.getElementById('attendance-table');
+
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const data = new FormData(form);
+            const semester = data.get('semester');
+            const section = data.get('section');
+            const date = data.get('date');
+            const startTime = data.get('start_time');
+            const endTime = data.get('end_time');
+            const subject = data.get('subject');
+
+            try {
+                const response = await fetch('/analyze', {
+                    method: 'POST',
+                    body: JSON.stringify({ date, startTime, endTime, subject }),
+                    headers: { 'Content-Type': 'application/json' }
+                });
+
+                const attendanceData = await response.json();
+
+                if (Array.isArray(attendanceData) && attendanceData.length > 0) {
+                    displayResults(attendanceData);
+                } else {
+                    results.innerHTML = '<h2>No students were present on this date.</h2>';
+                }
+            } catch (error) {
+                console.error(error);
+                alert('An error occurred. Please try again.');
+            }
+        });
+
+        function displayResults(data) {
+            const tbody = table.querySelector('tbody');
+            tbody.innerHTML = ""; // Clear existing table content
+
+            data.forEach((student) => {
+                const row = document.createElement('tr');
+                row.innerHTML = 
+                    <td>${student.name}</td>
+                    <td>${student.registration_number}</td>
+                    <td>${student.semester}</td>
+                    <td>${student.section}</td>
+                    <td>${student.date}</td>
+                    <td>${student.time}</td>
+                    <td>${student.subject}</td>
+                ;
+                tbody.appendChild(row);
+            });
+        }
+    </script> -->
+
+    <script>
+    const form = document.getElementById('attendance-form');
+    const results = document.getElementById('results');
+    const table = document.getElementById('attendance-table');
+
+    form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const data = new FormData(form);
+        const semester = data.get('semester');
+        const section = data.get('section');
+        const date = data.get('date');
+        const startTime = data.get('start_time');
+        const endTime = data.get('end_time');
+        const subject = data.get('subject');
+
+        // Convert date to DD-MM-YYYY format
+        const dateFormatted = formatDate(date); 
+
+        try {
+            const response = await fetch('/analyze', {
+                method: 'POST',
+                body: JSON.stringify({ semester, section, date: dateFormatted, startTime, endTime, subject }),
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            const attendanceData = await response.json();
+
+            if (Array.isArray(attendanceData) && attendanceData.length > 0) {
+                displayResults(attendanceData);
+            } else {
+                results.innerHTML = '<h2>No students were present on this date.</h2>';
+            }
+        } catch (error) {
+            console.error(error);
+            alert('An error occurred. Please try again.');
+        }
+    });
+
+    // Function to convert date from YYYY-MM-DD to DD-MM-YYYY format
+    function formatDate(dateStr) {
+        const [year, month, day] = dateStr.split('-');
+        return ${day}-${month}-${year};
+    }
+
+    function displayResults(data) {
+        const tbody = table.querySelector('tbody');
+        tbody.innerHTML = ""; // Clear existing table content
+
+        data.forEach((student) => {
+            const row = document.createElement('tr');
+            row.innerHTML = 
+                <td>${student.name}</td>
+                <td>${student.registration_number}</td>
+                <td>${student.semester}</td>
+                <td>${student.section}</td>
+                <td>${student.date}</td>
+                <td>${student.time}</td>
+                <td>${student.subject}</td>
+            ;
+            tbody.appendChild(row);
+        });
+    }
+</script>
+
+</body>
+</html>
