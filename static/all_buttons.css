@@ -1,0 +1,210 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh; /* Full height */
+    background-image: url('scanner.gif'); /* Background GIF */
+    background-size: cover; /* Cover the entire viewport */
+    background-position: center; /* Center the background */
+    display: flex; /* Use flexbox for centering */
+    flex-direction: column; /* Align items vertically */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    color: rgb(232, 235, 236); /* Text color */
+    font-family: Arial, sans-serif; /* Font style */
+    text-align: center; /* Center text */
+    overflow-y: auto;
+}
+
+/* Styling for the heading */
+h1 {
+    background: linear-gradient(45deg,  #031B88, #6096FD, #AAB6FB, #FB7B8E, #FAA7B8); /* Gradient colors */
+    -webkit-background-clip: text; /* Clip background to text */
+    -webkit-text-fill-color: transparent; /* Make text fill color transparent */
+    padding: 20px 30px; /* Padding */
+    border-radius: 10px; /* Rounded corners */
+    font-size: 3em; /* Font size */
+    margin: 0 auto; /* Center horizontally, no top margin */
+    border: 2px solid rgba(255, 255, 255, 0.4); /* Border */
+    text-align: center; /* Center the text */
+    position: absolute; /* Position absolutely to move it to the top */
+    top: 20px; /* Distance from the top */
+    left: 50%; /* Positioning from the left */
+    transform: translateX(-50%); /* Center the element horizontally */
+}
+
+/* Styling the form container */
+form {
+    background: linear-gradient(45deg, #031B88, #6096FD, #AAB6FB, #FB7B8E, #FAA7B8);
+    padding: 20px 30px; /* Form padding */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Shadow for depth */
+    width: 500px; /* Set your desired width here */
+    max-width: 100%; /* Ensure it doesn't exceed the viewport */
+    text-align: left; /* Align text to the left */
+    top: 50px
+}
+
+/* Styling the form labels */
+label {
+    font-size: 1.1em; /* Increase font size */
+    color: #333; /* Dark text color for labels */
+    display: block; /* Block display for alignment */
+    margin-bottom: 5px; /* Margin between label and input */
+    font-weight: bold;
+}
+
+/* Styling the form input fields */
+input[type="text"],
+input[type="number"],
+input[type="tel"],
+input[type="date"] {
+    width: 100%; /* Full width */
+    padding: 5px; /* Padding inside the input fields */
+    margin-bottom: 15px; /* Margin between input fields */
+    border-radius: 5px; /* Rounded corners */
+    border: 1px solid #080707; /* Light border */
+    box-sizing: border-box; /* Ensures padding doesn't affect width */
+    font-size: 1em; /* Font size */
+}
+
+
+
+/* The button and button:hover is for submit  button */
+button {
+    display: block; /* Make button a block element */
+    margin: 20px auto; /* Center the button horizontally */
+    padding: 10px 20px;
+    font-size: 1em;
+    color: rgb(6, 5, 5);
+    background: linear-gradient(45deg,#A7A6CD, #8989BA, #8989BA);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    font-weight: bold;
+}
+
+button:hover {
+    background: linear-gradient(45deg,#6A11CB, #2575FC);
+    transform: translateY(-2px);
+}
+
+
+/* Buttons styling */
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+/* The button and anchor (a) elements share the same class for consistent styling */
+.button {
+    display: flex; /* Use Flexbox for centering */
+    justify-content: center; /* Center text horizontally */
+    align-items: center; /* Center text vertically */
+    padding: 35px 50PX; /* Reduced padding for smaller button size */
+    font-size: 1.5em; /* Adjust font size */
+    font-weight: bold; /* Make the text bold */
+    color: rgb(13, 11, 11); /* Text color */
+    background: linear-gradient(45deg,#6096FD); /* Multicolor gradient */
+    text-decoration: none; /* Remove underline */
+    border: none; /* Remove border */
+    border-radius: 10px; /* Rounded corners */
+    cursor: pointer; /* Pointer on hover */
+    transition: background 0.3s, transform 0.3s; /* Smooth background transition */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Shadow for depth */
+}
+
+.button:hover {
+    background: linear-gradient(45deg, #AAB6FB); /* Change gradient on hover */
+    transform: translateY(-2px); /* Slight upward movement */
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: space-between; /* Ensures buttons spread evenly */
+    gap: 10px; /* Space between buttons */
+    margin-top: 20px;
+}
+
+h3 {
+    position: absolute;
+    margin-top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+    font-size: 2em;
+}
+
+/* New styles for results section */
+#results {
+    margin-top: 20px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th{
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+td{
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    margin-left: 50px;
+}
+
+/* Check attendance */
+h4 {
+    position: absolute;
+    top: 80px; /* Adjust this value to position it lower or higher */
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+    font-size: 2em;
+    color: white; /* Ensure the text is white */
+}
+
+button:hover {
+    background: linear-gradient(45deg,#6A11CB, #2575FC);
+    transform: translateY(-2px);
+}
+
+/* Result */
+/* h5{
+    position: absolute;
+    top: 70%; /* Adjust this value to position it lower or higher */
+    /* left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+    font-size: 2em;
+    color: white; 
+
+} */ 
+
+/* take attendance */
+h6{
+    position: absolute;
+    top: 80px; /* Adjust this value to position it lower or higher */
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+    font-size: 2em;
+    color: white; /* Ensure the text is white */
+}
+button:hover {
+    background: linear-gradient(45deg,#6A11CB, #2575FC);
+    transform: translateY(-2px);
+}
+
+
+
+
+
